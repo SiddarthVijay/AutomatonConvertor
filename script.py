@@ -24,6 +24,10 @@ outputFinal = parsedJSON["final"]
 outputDelta = parsedJSON["t_func"]
 
 # Find all states one by one
+for state in range(inputStates):
+    for delta in inputDelta:
+        if state not in delta:
+            phiEntry(state, delta, outputStates)
 
 
 # Outputing the answer in JSON
