@@ -2,7 +2,7 @@
 import json
 
 # Custom function imports
-from helper import *
+from helper import phiEntry, multiStates
 
 # Reading and processing inputs
 inputFile = open(r"input.json", "r")
@@ -17,18 +17,25 @@ inputFinal = parsedJSON["final"]
 inputDelta = parsedJSON["t_func"]
 
 # Output objects
-outputStates = parsedJSON["states"]
-outputAlphabet = parsedJSON["letters"]
-outputStart = parsedJSON["start"]
-outputFinal = parsedJSON["final"]
-outputDelta = parsedJSON["t_func"]
+outputStates = inputStates
+outputAlphabet = inputAlphabet
+outputStart = inputStart
+outputFinal = []
+outputDelta = []
 
 # Find all states one by one
 for state in range(inputStates):
     for delta in inputDelta:
-        if state not in delta:
-            phiEntry(state, delta, outputStates)
-
+        if state in delta:
+            # print(state, delta)
+            for alphabet in inputAlphabet:
+                if alphabet in delta:
+                    currentFinalStates = delta[-1]
+                    if len(currentFinalStates) == 1:
+                        outputDelta.append(delta)
+                    else:
+                        outputStates += 1
+                        multiOutputs()
 
 # Outputing the answer in JSON
 # outputFile = open(r"output.json", 'w')
